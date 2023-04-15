@@ -1,0 +1,3817 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="SkLearn2PMML package" version="0.92.0"/>
+		<Timestamp>2023-04-11T22:35:51Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension name="repr">PMMLPipeline(steps=[('gradient', GradientBoostingClassifier())])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="Diabetes" optype="categorical" dataType="double">
+			<Value value="0.0"/>
+			<Value value="1.0"/>
+		</DataField>
+		<DataField name="Age" optype="continuous" dataType="float"/>
+		<DataField name="Sex" optype="continuous" dataType="float"/>
+		<DataField name="HighChol" optype="continuous" dataType="float"/>
+		<DataField name="CholCheck" optype="continuous" dataType="float"/>
+		<DataField name="BMI" optype="continuous" dataType="float"/>
+		<DataField name="Smoker" optype="continuous" dataType="float"/>
+		<DataField name="HeartDiseaseorAttack" optype="continuous" dataType="float"/>
+		<DataField name="PhysActivity" optype="continuous" dataType="float"/>
+		<DataField name="Fruits" optype="continuous" dataType="float"/>
+		<DataField name="Veggies" optype="continuous" dataType="float"/>
+		<DataField name="HvyAlcoholConsump" optype="continuous" dataType="float"/>
+		<DataField name="GenHlth" optype="continuous" dataType="float"/>
+		<DataField name="MentHlth" optype="continuous" dataType="float"/>
+		<DataField name="PhysHlth" optype="continuous" dataType="float"/>
+		<DataField name="DiffWalk" optype="continuous" dataType="float"/>
+		<DataField name="Stroke" optype="continuous" dataType="float"/>
+		<DataField name="HighBP" optype="continuous" dataType="float"/>
+	</DataDictionary>
+	<MiningModel functionName="classification" algorithmName="sklearn.ensemble._gb.GradientBoostingClassifier">
+		<MiningSchema>
+			<MiningField name="Diabetes" usageType="target"/>
+			<MiningField name="Age"/>
+			<MiningField name="Sex"/>
+			<MiningField name="HighChol"/>
+			<MiningField name="CholCheck"/>
+			<MiningField name="BMI"/>
+			<MiningField name="Smoker"/>
+			<MiningField name="HeartDiseaseorAttack"/>
+			<MiningField name="PhysActivity"/>
+			<MiningField name="Fruits"/>
+			<MiningField name="Veggies"/>
+			<MiningField name="HvyAlcoholConsump"/>
+			<MiningField name="GenHlth"/>
+			<MiningField name="MentHlth"/>
+			<MiningField name="PhysHlth"/>
+			<MiningField name="DiffWalk"/>
+			<MiningField name="Stroke"/>
+			<MiningField name="HighBP"/>
+		</MiningSchema>
+		<Segmentation multipleModelMethod="modelChain" missingPredictionTreatment="returnMissing">
+			<Segment id="1">
+				<True/>
+				<MiningModel functionName="regression">
+					<MiningSchema>
+						<MiningField name="HighBP"/>
+						<MiningField name="GenHlth"/>
+						<MiningField name="Age"/>
+						<MiningField name="BMI"/>
+						<MiningField name="HighChol"/>
+						<MiningField name="HvyAlcoholConsump"/>
+						<MiningField name="DiffWalk"/>
+						<MiningField name="HeartDiseaseorAttack"/>
+						<MiningField name="Sex"/>
+						<MiningField name="CholCheck"/>
+						<MiningField name="Veggies"/>
+						<MiningField name="Stroke"/>
+						<MiningField name="PhysHlth"/>
+						<MiningField name="Smoker"/>
+						<MiningField name="Fruits"/>
+						<MiningField name="MentHlth"/>
+						<MiningField name="PhysActivity"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(1.0)" optype="continuous" dataType="double" isFinalResult="false"/>
+						<OutputField name="sigmoid(decisionFunction(1.0))" optype="continuous" dataType="double" feature="transformedValue" isFinalResult="false">
+							<Apply function="/">
+								<Constant dataType="double">1.0</Constant>
+								<Apply function="+">
+									<Constant dataType="double">1.0</Constant>
+									<Apply function="exp">
+										<Apply function="*">
+											<Constant dataType="double">-1.0</Constant>
+											<FieldRef field="decisionFunction(1.0)"/>
+										</Apply>
+									</Apply>
+								</Apply>
+							</Apply>
+						</OutputField>
+					</Output>
+					<Targets>
+						<Target rescaleConstant="-2.4250262830007743E-4" rescaleFactor="0.1"/>
+					</Targets>
+					<LocalTransformations>
+						<DerivedField name="double(HighBP)" optype="continuous" dataType="double">
+							<FieldRef field="HighBP"/>
+						</DerivedField>
+						<DerivedField name="double(GenHlth)" optype="continuous" dataType="double">
+							<FieldRef field="GenHlth"/>
+						</DerivedField>
+						<DerivedField name="double(Age)" optype="continuous" dataType="double">
+							<FieldRef field="Age"/>
+						</DerivedField>
+						<DerivedField name="double(BMI)" optype="continuous" dataType="double">
+							<FieldRef field="BMI"/>
+						</DerivedField>
+						<DerivedField name="double(HighChol)" optype="continuous" dataType="double">
+							<FieldRef field="HighChol"/>
+						</DerivedField>
+						<DerivedField name="double(HvyAlcoholConsump)" optype="continuous" dataType="double">
+							<FieldRef field="HvyAlcoholConsump"/>
+						</DerivedField>
+						<DerivedField name="double(DiffWalk)" optype="continuous" dataType="double">
+							<FieldRef field="DiffWalk"/>
+						</DerivedField>
+						<DerivedField name="double(HeartDiseaseorAttack)" optype="continuous" dataType="double">
+							<FieldRef field="HeartDiseaseorAttack"/>
+						</DerivedField>
+						<DerivedField name="double(Sex)" optype="continuous" dataType="double">
+							<FieldRef field="Sex"/>
+						</DerivedField>
+						<DerivedField name="double(CholCheck)" optype="continuous" dataType="double">
+							<FieldRef field="CholCheck"/>
+						</DerivedField>
+						<DerivedField name="double(Veggies)" optype="continuous" dataType="double">
+							<FieldRef field="Veggies"/>
+						</DerivedField>
+						<DerivedField name="double(Stroke)" optype="continuous" dataType="double">
+							<FieldRef field="Stroke"/>
+						</DerivedField>
+						<DerivedField name="double(PhysHlth)" optype="continuous" dataType="double">
+							<FieldRef field="PhysHlth"/>
+						</DerivedField>
+						<DerivedField name="double(Smoker)" optype="continuous" dataType="double">
+							<FieldRef field="Smoker"/>
+						</DerivedField>
+						<DerivedField name="double(Fruits)" optype="continuous" dataType="double">
+							<FieldRef field="Fruits"/>
+						</DerivedField>
+						<DerivedField name="double(MentHlth)" optype="continuous" dataType="double">
+							<FieldRef field="MentHlth"/>
+						</DerivedField>
+						<DerivedField name="double(PhysActivity)" optype="continuous" dataType="double">
+							<FieldRef field="PhysActivity"/>
+						</DerivedField>
+					</LocalTransformations>
+					<Segmentation multipleModelMethod="sum" missingPredictionTreatment="returnMissing">
+						<Segment id="1">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+								</MiningSchema>
+								<Node score="1.2633892781582463">
+									<True/>
+									<Node score="0.1396477091411624">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.9309263422280876">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-1.5867716549770334">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.8045543113332618">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="6.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2977782538866673">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.4560416570830225">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="29.5"/>
+										</Node>
+									</Node>
+									<Node score="0.7281235542240909">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="2">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="1.050163188244005">
+									<True/>
+									<Node score="0.03121899843247854">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.9406703735691163">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-1.4876057704849586">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											</Node>
+										</Node>
+										<Node score="-1.0726860567260175">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+										</Node>
+									</Node>
+									<Node score="0.17387835887265674">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.5131649466880229">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+										</Node>
+									</Node>
+									<Node score="0.49799083943191597">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="3">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.9600379829112939">
+									<True/>
+									<Node score="0.15790986755958097">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.7716805914170553">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-1.3318663276384588">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="28.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.6367092755544828">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="26.5"/>
+										</Node>
+									</Node>
+									<Node score="0.17119687211536172">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.4899730423198766">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.4002999531176107">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="4">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.9826740786827171">
+									<True/>
+									<Node score="0.3237382272805915">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.6428859524828872">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-1.2287257579123512">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.4400644825940052">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.39467402074864205">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.30131902324579724">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+										</Node>
+									</Node>
+									<Node score="0.4754447871450685">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="5">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.8180353797526903">
+									<True/>
+									<Node score="0.14271448129537617">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.6596082263698512">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-1.1739695951471647">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.6433794350244456">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="6.5"/>
+										</Node>
+									</Node>
+									<Node score="0.1096660282335003">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.5666055922492387">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										</Node>
+									</Node>
+									<Node score="0.30698499835877796">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="6">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+								</MiningSchema>
+								<Node score="0.98656191165333">
+									<True/>
+									<Node score="0.6068626652981602">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.3291249715342402">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+											<Node score="-0.9664722948238842">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.37579296216606567">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="24.5"/>
+										</Node>
+									</Node>
+									<Node score="0.39902064443035706">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.23219219408362315">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+										</Node>
+									</Node>
+									<Node score="0.5575956275034893">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="28.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="7">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.8767996803129452">
+									<True/>
+									<Node score="0.15494339914902533">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.6849812711298342">
+											<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-1.2037102786811935">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.4304376848597918">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.26691129754993626">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.5830793334936009">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="7.5"/>
+										</Node>
+									</Node>
+									<Node score="0.36078881329760026">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="30.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="8">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.5999899379035797">
+									<True/>
+									<Node score="0.10629999678156507">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.4210712193604931">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											<Node score="-1.0610833150865095">
+												<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.6677082508267814">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.15861629264044266">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="26.5"/>
+										<Node score="-0.5273543034568687">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3106139499798153">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="9">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+								</MiningSchema>
+								<Node score="-0.26848282133097856">
+									<True/>
+									<Node score="0.24477228039992843">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.039143116545098146">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="28.5"/>
+											<Node score="-0.8115839244606754">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.49709067972688814">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="6.5"/>
+										</Node>
+									</Node>
+									<Node score="0.4728657442952607">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.07009304545685704">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+										</Node>
+									</Node>
+									<Node score="0.7345433652766775">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="10">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(DiffWalk)"/>
+								</MiningSchema>
+								<Node score="0.8860180171805877">
+									<True/>
+									<Node score="0.3981049939178639">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.0162431197382269">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											<Node score="-0.8633836627352153">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="34.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.3188697130980777">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="28.5"/>
+										</Node>
+									</Node>
+									<Node score="0.28343345380598034">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="30.5"/>
+										<Node score="-0.24978800668742215">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="0.4921333643493362">
+										<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="11">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+								</MiningSchema>
+								<Node score="0.6767111242742174">
+									<True/>
+									<Node score="0.48067659977636035">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.024789137436474908">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+											<Node score="-0.65454384654876">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.2967475019479598">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="24.5"/>
+										</Node>
+									</Node>
+									<Node score="0.18648273293701767">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.5404820691099677">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="6.5"/>
+										</Node>
+									</Node>
+									<Node score="0.07458994036797363">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="12">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.4474613859689452">
+									<True/>
+									<Node score="0.30682532180495076">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.25911431154773273">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											<Node score="-0.8570584133804753">
+												<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.2982616491238891">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+										</Node>
+									</Node>
+									<Node score="0.0680989363009187">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+										<Node score="-0.6551472533913879">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.10563486808080146">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="13">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+								</MiningSchema>
+								<Node score="0.7826900782930818">
+									<True/>
+									<Node score="0.7311327858760636">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.05077698285164365">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.5733099549562319">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+											</Node>
+										</Node>
+										<Node score="0.23496674720084312">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.15629231829259377">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+										<Node score="-0.6456399749115133">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="0.4562234182126262">
+										<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="14">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+								</MiningSchema>
+								<Node score="-0.2541545725661007">
+									<True/>
+									<Node score="0.40182069254111247">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.15366611215669088">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+											<Node score="-0.6567643150951982">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.2314830267544028">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="24.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.7783277573873792">
+										<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.12779458199464414">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.5663136466115768">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="15">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+								</MiningSchema>
+								<Node score="0.5140370169479974">
+									<True/>
+									<Node score="0.17867124641110338">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.40224734092599684">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											<Node score="-0.9493719573815785">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.3913288301753715">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.07704772870411102">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+										<Node score="-0.7597645472642272">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="0.09883738404666288">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="16">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+								</MiningSchema>
+								<Node score="0.6084656484001945">
+									<True/>
+									<Node score="0.11156259261319447">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.07651153441294055">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											<Node score="-0.6442668612815216">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="36.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.7153034219672123">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="0.04271522793596757">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+										<Node score="-0.6749406483839455">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2718955375337168">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="34.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="17">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+								</MiningSchema>
+								<Node score="-0.34932874429252464">
+									<True/>
+									<Node score="0.2073864896916522">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.03577409378221999">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											<Node score="-0.5834531161024402">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.3016346467403427">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.11122443567530124">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										<Node score="-0.3409535827248882">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.48281845771716586">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="18">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="0.6127062900711371">
+									<True/>
+									<Node score="0.07780333723895193">
+										<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.5165046125517146">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.9531079153562148">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.44793569593276017">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="6.5"/>
+										</Node>
+									</Node>
+									<Node score="0.33968590158938095">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.2431137712193285">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										</Node>
+									</Node>
+									<Node score="1.056128878566065">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="19">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+								</MiningSchema>
+								<Node score="0.4760455292926975">
+									<True/>
+									<Node score="0.431943849070741">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+										<Node score="-0.10770942729549929">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.5334465663239675">
+												<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.034454560957232656">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="22.5"/>
+										</Node>
+									</Node>
+									<Node score="0.1547422724092916">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+										<Node score="-0.488575982819288">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="0.15402555199071358">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="34.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="20">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+								</MiningSchema>
+								<Node score="-0.3657397704811642">
+									<True/>
+									<Node score="0.5641867320344925">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.062227617930395544">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.39790746378335135">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+											</Node>
+										</Node>
+										<Node score="0.17870559542056294">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.26460155511356953">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="26.5"/>
+										<Node score="-0.16283658187091649">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.31237347083898653">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="21">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.4836999415855754">
+									<True/>
+									<Node score="0.1311082264915437">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.0707933034304937">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											<Node score="-0.5063164556896521">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.398963924096444">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.02825556879699561">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										<Node score="-1.2679310016806944">
+											<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.21279649910800527">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="22">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="-0.2005845294620009">
+									<True/>
+									<Node score="0.6488185929708185">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.1755870841179404">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.7952419797436217">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="0.021086371874474406">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.19657875086919188">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-1.0054094858780147">
+											<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.8251724554092124">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="29.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="23">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.1919246542134214">
+									<True/>
+									<Node score="0.8763693873045749">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.15437023034193065">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.6373787543539202">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="0.27024988594899807">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.03707758417680332">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-1.0388562417977385">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3500658254705223">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="24">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="0.539039317261664">
+									<True/>
+									<Node score="0.2573352501312638">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.053972098332283086">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											<Node score="-0.4385593814256062">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="34.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.11712835007895202">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.527244388250131">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+										<Node score="0.08463146636982266">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2837858409608244">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="25">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.18581790641992332">
+									<True/>
+									<Node score="0.32967592834745574">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										<Node score="-0.14255189831266674">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.4806562155402175">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.04657561234412737">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.17137563188735036">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="6.5"/>
+										<Node score="-0.3240892334210772">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="38.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.8176858220754181">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="26">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+								</MiningSchema>
+								<Node score="-0.312612350045312">
+									<True/>
+									<Node score="0.07313885735344504">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.2672050721052514">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="7.5"/>
+											<Node score="-0.7620309803125452">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.36710122616981883">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										</Node>
+									</Node>
+									<Node score="0.05145968714674382">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="21.5"/>
+										<Node score="-0.4562592979452072">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.3165396559565748">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="27">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="-0.3062027443611276">
+									<True/>
+									<Node score="0.03715346751619945">
+										<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.3433697913106089">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.7864081153359018">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.3785740302745831">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+										</Node>
+									</Node>
+									<Node score="0.0683913022088075">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.8678318920380986">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2893387908792836">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="28">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Veggies)"/>
+								</MiningSchema>
+								<Node score="0.46186659241301636">
+									<True/>
+									<Node score="0.18647319113719182">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="30.5"/>
+										<Node score="0.046626411702725426">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.2688145464963812">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+											</Node>
+										</Node>
+										<Node score="0.46867277950605807">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.05919292778563357">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										<Node score="-0.9113978649773247">
+											<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.20916157310714195">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="35.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="29">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Stroke)"/>
+								</MiningSchema>
+								<Node score="-0.19196518880593738">
+									<True/>
+									<Node score="0.6271854823856635">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.09217272494359047">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.4405822810604985">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+											</Node>
+										</Node>
+										<Node score="0.25939420668496743">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.3325505272273711">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.07245066380611795">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.6095618498296973">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="30">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.25886096132541087">
+									<True/>
+									<Node score="0.2350754500420457">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="0.20625022957627007">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											<Node score="-0.24737925258938584">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="38.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.08346221901218569">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.028131301295614444">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="21.5"/>
+										<Node score="-0.3879440811937931">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.43572141455180535">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="31">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.09267724975313404">
+									<True/>
+									<Node score="0.6610833868511305">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="-0.29818646876583466">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.7187720685070587">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.1148122041865147">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.02263006059597909">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.8598761151090726">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3520288666612549">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="32">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.15317337209270365">
+									<True/>
+									<Node score="-0.7591464308397853">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="28.5"/>
+										<Node score="0.040834760769561024">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.2430835958370671">
+												<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.564116695164159">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										</Node>
+									</Node>
+									<Node score="0.33645914494891993">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.7918154834859193">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3868038326659582">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="33">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Stroke)"/>
+								</MiningSchema>
+								<Node score="0.5190170149560847">
+									<True/>
+									<Node score="0.3312591741452316">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.02777340016601152">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="34.5"/>
+											<Node score="-0.21211521249150667">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											</Node>
+										</Node>
+										<Node score="0.06103261063665537">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3742009915650165">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="22.5"/>
+										<Node score="0.10486770210511302">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2665511777204969">
+										<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="34">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="-0.15009342028047137">
+									<True/>
+									<Node score="0.25411603189797505">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.07278487081021434">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+											<Node score="-0.27159736114144256">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="34.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.06163439032079408">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.3989235551074165">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.08474884539990851">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.509784848397434">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="35">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+								</MiningSchema>
+								<Node score="-0.20946443696370803">
+									<True/>
+									<Node score="-0.5250370495544613">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="0.08797617009743212">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+											<Node score="-0.46366200492860193">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="38.5"/>
+											</Node>
+										</Node>
+										<Node score="0.006951717731066541">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.02685461650441301">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="21.5"/>
+										<Node score="-0.31649258083629406">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.22311799657402465">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="36">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Stroke)"/>
+								</MiningSchema>
+								<Node score="0.08711949189379034">
+									<True/>
+									<Node score="1.2692348518047032">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="-0.25044321865511854">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.656590576039809">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.3147405045583238">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.06981534928466743">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.7474101320787511">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.20108252691158737">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="37">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.32499488420610095">
+									<True/>
+									<Node score="0.05577328794989678">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.03308484295881745">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-0.2868720781391426">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.6093406885749838">
+											<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.38592562250742407">
+										<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.1323426532033009">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+										</Node>
+									</Node>
+									<Node score="0.580717160374949">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="2.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="38">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="0.3361489286670538">
+									<True/>
+									<Node score="0.1924931567267363">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.05168655902734223">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.31826176757896857">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+											</Node>
+										</Node>
+										<Node score="0.6401523732485793">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.023707108489905735">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="30.5"/>
+										<Node score="0.1765660345624009">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.1323237335771075">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="39">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.43699337545343564">
+									<True/>
+									<Node score="0.018093547070857103">
+										<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.6589554087987388">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.41721565896849583">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.33263941809483016">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.037249608321408195">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.7309125414180461">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="13.0"/>
+										</Node>
+									</Node>
+									<Node score="0.13842232927085876">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="40">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="-0.3590418016608437">
+									<True/>
+									<Node score="0.19671378090825228">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										<Node score="-0.07378350066292796">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.464392311892239">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.15329958048402095">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.08898502975487244">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="7.5"/>
+										<Node score="-0.7614239228251312">
+											<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.10808559881181085">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="41">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.23527047853806513">
+									<True/>
+									<Node score="0.21382946265385594">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.06339467432628637">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.781991099708625">
+												<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.4729436855058594">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3968032253526286">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="0.30345351638674234">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.02447993102050508">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="42">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Stroke)"/>
+								</MiningSchema>
+								<Node score="0.31489634849727083">
+									<True/>
+									<Node score="0.19686137569837917">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+										<Node score="0.3326523777863669">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+											<Node score="-0.14113413997581703">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.04768228737444976">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.21758586616642805">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										<Node score="-0.034862855720850947">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="41.5"/>
+										</Node>
+									</Node>
+									<Node score="0.11409380444983526">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="43">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="-2.9021735947809013">
+									<True/>
+									<Node score="0.19764250031490863">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.26454440623770387">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+											<Node score="-0.17152302572884956">
+												<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.04112571816617141">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2937948724078168">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.05902842843755239">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.21276026280283966">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="53.0"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="44">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(Stroke)"/>
+								</MiningSchema>
+								<Node score="0.6420866216207336">
+									<True/>
+									<Node score="1.1028334557682378">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="-0.41791859102714324">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="0.010243461587914109">
+												<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.27164451388117355">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.058502136853101634">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.36905625477405585">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3422718520033449">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="43.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="45">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="-0.27279902865081046">
+									<True/>
+									<Node score="0.15449703575296686">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										<Node score="-0.03593155754926581">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.3961168471794793">
+												<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.11335422113561883">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.04248591577590354">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="7.5"/>
+										<Node score="-0.3524320014671871">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="0.08713001212556049">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="46">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.08159031892953975">
+									<True/>
+									<Node score="-1.0684548883877278">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.6283544234399728">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+											<Node score="-0.6414280264643791">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											</Node>
+										</Node>
+										<Node score="0.47167564564992787">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="47.5"/>
+										</Node>
+									</Node>
+									<Node score="0.029278336356070845">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="27.5"/>
+										<Node score="-0.15241001211649796">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.262658039453131">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="47">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.1766650009875775">
+									<True/>
+									<Node score="-0.3385614274502616">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.058316191779923275">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.7015219136735377">
+												<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.14440514151088357">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2087569125667669">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="10.5"/>
+										<Node score="-0.7522330628944535">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.06593921826307943">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="48">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.6057326908168115">
+									<True/>
+									<Node score="1.5126877491405153">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="0.09507923606819935">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="9.5"/>
+											<Node score="-0.3805881171302994">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="11.5"/>
+											</Node>
+										</Node>
+										<Node score="0.46336447688953647">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.04646674391193888">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.3084858983984907">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.284405709268505">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="43.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="49">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="-8.209468352518222">
+									<True/>
+									<Node score="0.120070195714245">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.10477841709764436">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.12188705537428296">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="36.5"/>
+											</Node>
+										</Node>
+										<Node score="0.5451155327261444">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.011270430126069346">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.1424582423547885">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2708522350260249">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="92.0"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="50">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(Fruits)"/>
+								</MiningSchema>
+								<Node score="0.09070113801865592">
+									<True/>
+									<Node score="-0.7964035397232803">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										<Node score="0.2721191906058746">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+											<Node score="-0.10946164897131412">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.1638734504965521">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.6435894013287352">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.001272700820543463">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2869025708632841">
+										<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="51">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+								</MiningSchema>
+								<Node score="0.05886001185204759">
+									<True/>
+									<Node score="0.12502017770081916">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										<Node score="0.01883637843923527">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.2625204531339519">
+												<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.09736230850064485">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.44465109037056844">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.05368937417394551">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.41981352802149835">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="52">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.13963556608913058">
+									<True/>
+									<Node score="0.056421048891023305">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="0.10731018881578418">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.543174725606361">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="2.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.10544692537951827">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+										</Node>
+									</Node>
+									<Node score="-2.06843825879018">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="10.5"/>
+										<Node score="0.18141044234271203">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="74.0"/>
+										</Node>
+									</Node>
+									<Node score="-0.06733174886767165">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="53">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.010840769560977827">
+									<True/>
+									<Node score="-0.09022540827739627">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.17085143125298458">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.34787118780184073">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="11.5"/>
+											</Node>
+										</Node>
+										<Node score="0.04168824348430385">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.17977905533347602">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="11.5"/>
+										<Node score="0.5712828929389998">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="1.848171358989749">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="16.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="54">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="0.11521466025295532">
+									<True/>
+									<Node score="0.8020779178819956">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.5207888018355672">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+											<Node score="-0.5358956499358256">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.6028386674418972">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.14981713417607675">
+										<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.02499903703879541">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+										</Node>
+									</Node>
+									<Node score="0.357893895625833">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="2.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="55">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.2276536558843283">
+									<True/>
+									<Node score="-0.0641748634407468">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.028980086390193997">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.332701341854364">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.3293010012066552">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="0.012134396248558334">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.11445313938198028">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-2.056561097353622">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="1.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="56">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="-2.450252273788109">
+									<True/>
+									<Node score="0.09293936707581374">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.009112087188945052">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+											<Node score="-0.4091870837206285">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.019095578033433813">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.5285613406823327">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.17180093419072218">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.10246664200591686">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="53.0"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="57">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(PhysActivity)"/>
+								</MiningSchema>
+								<Node score="0.11324780918436994">
+									<True/>
+									<Node score="-0.03188604404903333">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										<Node score="-0.17027833372481244">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.40342490153115235">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+											</Node>
+										</Node>
+										<Node score="0.20421048567651306">
+											<SimplePredicate field="double(PhysActivity)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.17070327912186553">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										<Node score="-0.06063769546661886">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+										</Node>
+									</Node>
+									<Node score="0.012618948885546984">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="58">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.07707229667436115">
+									<True/>
+									<Node score="-0.4434717037350142">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.28133797261535864">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.63644007458011">
+												<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="17.5"/>
+											</Node>
+										</Node>
+										<Node score="0.26780764793389994">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.2448577415672228">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.11246558195280029">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.05111129295753602">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="59">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Fruits)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.05623052652594324">
+									<True/>
+									<Node score="-0.7260888731123722">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										<Node score="-0.150429603116235">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+											<Node score="-0.02091190161446776">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.11689015621005015">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.5521461703911695">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.00407651932437034">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.23017921858641505">
+										<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="60">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="-0.0678180960667459">
+									<True/>
+									<Node score="-0.93275704505914">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="0.04590164491215973">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.07377913257565406">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+											</Node>
+										</Node>
+										<Node score="0.25012177656433887">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.10235759804505938">
+										<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.20759295786184728">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+										</Node>
+									</Node>
+									<Node score="0.11449993102234454">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="10.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="61">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.20301026894144145">
+									<True/>
+									<Node score="-0.061385182614993816">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.35847226277038274">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.026828413919826263">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.29853538856289324">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.8729965302462566">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.02969158708816732">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										</Node>
+									</Node>
+									<Node score="-1.865497704620442">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="1.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="62">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Stroke)"/>
+								</MiningSchema>
+								<Node score="0.5032477775082841">
+									<True/>
+									<Node score="0.3019318530219554">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+										<Node score="0.21740912103602134">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.4128462899867191">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.31602359984134976">
+											<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.029580851691338297">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.28621670798510784">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.22295621047278355">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="43.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="63">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.034054219154158766">
+									<True/>
+									<Node score="-0.3916421809880635">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.3299635320130514">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.5828746755300995">
+												<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.25881210673233074">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.5695701930896855">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="-0.20975953669461633">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="9.5"/>
+										</Node>
+									</Node>
+									<Node score="0.047869452832915015">
+										<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="64">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.25581428648612103">
+									<True/>
+									<Node score="-0.04548319471699933">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="28.5"/>
+										<Node score="-0.27946209554502954">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+											<Node score="0.09823231183424354">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="25.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.31344975133648356">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="1.2205026294277934">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.4159710734820783">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="50.5"/>
+										</Node>
+									</Node>
+									<Node score="0.03597703697296447">
+										<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="65">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+								</MiningSchema>
+								<Node score="-0.024112582721966848">
+									<True/>
+									<Node score="-0.7461021248156137">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.01663014659560254">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+											<Node score="-0.07455971164482178">
+												<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.22832109849652243">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										</Node>
+									</Node>
+									<Node score="0.13744111147994056">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="11.5"/>
+										<Node score="0.5319912421920723">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										</Node>
+									</Node>
+									<Node score="1.750951245566838">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="16.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="66">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="-0.006830655460942017">
+									<True/>
+									<Node score="0.08664723707176666">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.5052542002644704">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="47.5"/>
+											<Node score="-0.4107170168124189">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+											</Node>
+										</Node>
+										<Node score="-1.5325010000282682">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="1.0057929005275823">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.43098735072525585">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.08765966705655437">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="67">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Smoker)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.22340757976482642">
+									<True/>
+									<Node score="-0.22211735129112717">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="23.5"/>
+										<Node score="-0.2599096645920326">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.126974303913527">
+												<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.07489034178027272">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="7.5"/>
+										</Node>
+									</Node>
+									<Node score="0.10822727846370944">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+										<Node score="-0.02809331147921315">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="37.5"/>
+										</Node>
+									</Node>
+									<Node score="0.0838834566971807">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="68">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+									<MiningField name="double(Fruits)"/>
+								</MiningSchema>
+								<Node score="-0.07252083048954301">
+									<True/>
+									<Node score="0.041422377432375666">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.07907832075513428">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="0.02212761691088291">
+												<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.2047921325358357">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.10411008700220413">
+										<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.18212588190020007">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+										</Node>
+									</Node>
+									<Node score="0.0986454908510193">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="10.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="69">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="-2.2017802182380763">
+									<True/>
+									<Node score="0.06643561498794376">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.36994852374911946">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+											<Node score="-0.143126811082833">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.015100434832729822">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.039124004457256265">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.5460138905251782">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="30.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.04898759207118947">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="53.0"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="70">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.004430823815093212">
+									<True/>
+									<Node score="-0.313656997931278">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+										<Node score="-0.016166538051521722">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.41332940325350126">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.2318503750889924">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="29.5"/>
+										</Node>
+									</Node>
+									<Node score="0.2572097346469491">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.054710154563428606">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.19618631188889124">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="71">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.0494675728821686">
+									<True/>
+									<Node score="0.17626821555385322">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-1.8683198889691952">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="18.5"/>
+											<Node score="-1.1871264462611018">
+												<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="9.0"/>
+											</Node>
+										</Node>
+										<Node score="-0.3665000597669023">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.04643019936568441">
+										<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.027817462654972133">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+										</Node>
+									</Node>
+									<Node score="0.27154867043936476">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="2.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="72">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(Fruits)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.037509593245771806">
+									<True/>
+									<Node score="-0.02753949456549469">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										<Node score="-0.09728300248962249">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.006247515366536593">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.2828621273062971">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="14.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.4541731658545959">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.002306181198858525">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.1864497466235346">
+										<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="73">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.06984094772445308">
+									<True/>
+									<Node score="0.03346996777100408">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="3.5"/>
+										<Node score="-0.1468665350080692">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.016486049904435692">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="2.5"/>
+											</Node>
+										</Node>
+										<Node score="0.18295112758636728">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.09742045513117277">
+										<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.16382449089835935">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+										</Node>
+									</Node>
+									<Node score="0.08560150188147732">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="10.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="74">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(DiffWalk)"/>
+									<MiningField name="double(Sex)"/>
+								</MiningSchema>
+								<Node score="-0.19089321082084573">
+									<True/>
+									<Node score="-0.04711130971793154">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+										<Node score="-0.012750846291210503">
+											<SimplePredicate field="double(DiffWalk)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.37373924094002214">
+												<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="1.055045320109091">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="15.5"/>
+										</Node>
+									</Node>
+									<Node score="0.021527441286197654">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.21713520913669535">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="0.056997024081740934">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="75">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.5244916231162108">
+									<True/>
+									<Node score="-0.28383263474879744">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.3652200659517671">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.5059261120411462">
+												<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="17.5"/>
+											</Node>
+										</Node>
+										<Node score="0.307166237643241">
+											<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.03201181270847545">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+										<Node score="-0.034095612751173794">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.19608128602007946">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="76">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.1636755228844693">
+									<True/>
+									<Node score="-0.0393721004450049">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.024797317841557417">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.2384387513487462">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.23742631692655355">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.6549235032458082">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.018278330169162502">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										</Node>
+									</Node>
+									<Node score="-1.7241427266669833">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="1.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="77">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="0.03920903144913555">
+									<True/>
+									<Node score="-0.3452088533564136">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="25.5"/>
+										<Node score="-0.2944563179326859">
+											<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.11348847381623228">
+												<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="22.5"/>
+											</Node>
+										</Node>
+										<Node score="0.039852897198183426">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.29360559725816343">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.05347004635530517">
+											<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.0325783029435125">
+										<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="78">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.4924881753458515">
+									<True/>
+									<Node score="0.01456817038325565">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+										<Node score="0.033679997983563116">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.03845456848873071">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+											</Node>
+										</Node>
+										<Node score="0.22905792142548526">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="0.6115530831428072">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										<Node score="0.10841230681298583">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="58.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.727399386820653">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="17.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="79">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="-0.0035789015168033343">
+									<True/>
+									<Node score="0.13518603212273556">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.4909084250893946">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="47.5"/>
+											<Node score="-0.31619307491360327">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+											</Node>
+										</Node>
+										<Node score="-1.4473866856137394">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.9259539698809413">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.359544018445071">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="25.5"/>
+										</Node>
+									</Node>
+									<Node score="0.06003518325121921">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="80">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.02729296409768397">
+									<True/>
+									<Node score="0.9823121751495605">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="0.21033834772057927">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="10.5"/>
+											<Node score="-0.197331967485866">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="33.5"/>
+											</Node>
+										</Node>
+										<Node score="0.21322953624739505">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.1558298841069459">
+										<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.03441066853426848">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.11567554086893592">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="81">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.040372462716958366">
+									<True/>
+									<Node score="0.1387396394282116">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+										<Node score="-0.5448969842353137">
+											<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.20946884605158358">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="1.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.23438625896831394">
+											<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.042903693098549064">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.023755428613386392">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+										</Node>
+									</Node>
+									<Node score="0.18766903584067304">
+										<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="82">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(Fruits)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.20405147915306474">
+									<True/>
+									<Node score="-0.13636456524064614">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="-0.6080245091096369">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+											<Node score="-0.15576413647005646">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="14.5"/>
+											</Node>
+										</Node>
+										<Node score="0.0029787413320462018">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.09644414769232224">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="24.5"/>
+										<Node score="0.45923366742813626">
+											<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.06152622504285454">
+										<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="83">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Smoker)"/>
+									<MiningField name="double(Fruits)"/>
+									<MiningField name="double(PhysActivity)"/>
+								</MiningSchema>
+								<Node score="0.17584890555888852">
+									<True/>
+									<Node score="-0.06952331043342898">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="31.5"/>
+										<Node score="-0.046496488216885026">
+											<SimplePredicate field="double(PhysActivity)" operator="lessOrEqual" value="0.5"/>
+											<Node score="0.14093876282732692">
+												<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.024685073000976703">
+											<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.06402570338400314">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										<Node score="-0.045147837801400394">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.041188525155331765">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="84">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.44852680359898595">
+									<True/>
+									<Node score="0.042501711975826265">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+										<Node score="0.01523125099733345">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.11773765741837139">
+												<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.2789157261284823">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+										</Node>
+									</Node>
+									<Node score="0.10185910169351486">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+										<Node score="0.27651033378247314">
+											<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.6583312308506396">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="17.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="85">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.026198218690174874">
+									<True/>
+									<Node score="-0.4985530488599493">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.3508771655182218">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="1.5"/>
+											<Node score="-0.4457390374833547">
+												<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="17.5"/>
+											</Node>
+										</Node>
+										<Node score="0.04728657823334064">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="22.5"/>
+										</Node>
+									</Node>
+									<Node score="1.3861822221317674">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="2.5"/>
+										<Node score="-0.29727531911984273">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="50.5"/>
+										</Node>
+									</Node>
+									<Node score="0.0236927334433843">
+										<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="86">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+								</MiningSchema>
+								<Node score="0.29967362562734035">
+									<True/>
+									<Node score="0.072328275608916">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.005857445642829582">
+											<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.15054906386328104">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.4480526837856806">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="30.5"/>
+										</Node>
+									</Node>
+									<Node score="0.04937411099188298">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+										<Node score="-0.010528568091264245">
+											<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.09549468012984254">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="32.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="87">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.014700775986366146">
+									<True/>
+									<Node score="-0.012004647608809406">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="-0.0077998110389509755">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.20269139871373248">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="20.5"/>
+											</Node>
+										</Node>
+										<Node score="0.19944343195948644">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="0.18154907640574935">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="24.5"/>
+										<Node score="0.6534984101914652">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+										</Node>
+									</Node>
+									<Node score="1.6045346665013926">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="16.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="88">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(HighBP)"/>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="0.022711712591409763">
+									<True/>
+									<Node score="0.9194510858664179">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="0.05489464916085248">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="14.5"/>
+											<Node score="-0.28628277094196286">
+												<SimplePredicate field="double(HighBP)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.2275884781045747">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+										</Node>
+									</Node>
+									<Node score="0.1649550299249453">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="71.5"/>
+										<Node score="0.004277461457606594">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="44.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.9358371930756438">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="79.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="89">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Fruits)"/>
+								</MiningSchema>
+								<Node score="-0.037725516538624104">
+									<True/>
+									<Node score="-0.30618100628732214">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.35947184738804744">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="11.5"/>
+											<Node score="-0.21801891884093424">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+											</Node>
+										</Node>
+										<Node score="1.0067433017737053">
+											<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.024427650068036735">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+										<Node score="-0.02529320464318474">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.18485522796772522">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="90">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(Fruits)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.004813003118627453">
+									<True/>
+									<Node score="0.00739010261845424">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.11073542673883255">
+											<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+											<Node score="0.0384243560581133">
+												<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="3.5"/>
+											</Node>
+										</Node>
+										<Node score="0.19959533663993434">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.12362866585213156">
+										<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-3.4923710982929536E-4">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.08613222942867932">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="91">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.12491127443357891">
+									<True/>
+									<Node score="-0.023596181557133406">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.2422379624499233">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.00911992540225841">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.19040161341134534">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.021931238198554887">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+										<Node score="0.14081702410130803">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="4.5"/>
+										</Node>
+									</Node>
+									<Node score="0.07848798253669877">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="2.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="92">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(PhysHlth)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="0.007308844172366107">
+									<True/>
+									<Node score="0.08567071576894124">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.011007703474332116">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="2.5"/>
+											<Node score="-0.3445976540750829">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="2.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.08782495984633877">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="35.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.27308349452449626">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="17.5"/>
+										<Node score="1.4424209613294838">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+										</Node>
+									</Node>
+									<Node score="0.19932010644802184">
+										<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="24.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="93">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-0.14041794127752585">
+									<True/>
+									<Node score="0.9477604427127327">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.3327830942243807">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="7.5"/>
+											<Node score="-0.34320623205439177">
+												<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="-0.051489070033401536">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+										</Node>
+									</Node>
+									<Node score="0.012576078513983636">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.1422365034026551">
+											<SimplePredicate field="double(Age)" operator="lessOrEqual" value="3.5"/>
+										</Node>
+									</Node>
+									<Node score="0.17119740180619733">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="94">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Veggies)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysActivity)"/>
+								</MiningSchema>
+								<Node score="0.0366039709290213">
+									<True/>
+									<Node score="-0.04918769740627401">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="21.5"/>
+										<Node score="0.18522127681154632">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.2051281673544899">
+												<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.45563427576327875">
+											<SimplePredicate field="double(PhysActivity)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="1.6738689676479175">
+										<SimplePredicate field="double(Veggies)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.04205778264318387">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="81.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.02270137222493283">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="10.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="95">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-2.4894873957881734">
+									<True/>
+									<Node score="-1.6315505066364762">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="1.5"/>
+										<Node score="0.32151093174284245">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.14278549482340228">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="35.5"/>
+											</Node>
+										</Node>
+										<Node score="0.7512379378096871">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="12.5"/>
+										</Node>
+									</Node>
+									<Node score="0.58944966687162">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="71.5"/>
+										<Node score="0.006716245380952247">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="58.5"/>
+										</Node>
+									</Node>
+									<Node score="-0.3093098063028682">
+										<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="96">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(Smoker)"/>
+									<MiningField name="double(Fruits)"/>
+									<MiningField name="double(PhysActivity)"/>
+								</MiningSchema>
+								<Node score="0.2013176569403145">
+									<True/>
+									<Node score="-0.0531224820001889">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="33.5"/>
+										<Node score="-0.024396700400471545">
+											<SimplePredicate field="double(PhysActivity)" operator="lessOrEqual" value="0.5"/>
+											<Node score="0.10701638556818692">
+												<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.023711510176226035">
+											<SimplePredicate field="double(Fruits)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.06927516555303721">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="8.5"/>
+										<Node score="-0.07735713108977373">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.00868785074017955">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="97">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(Sex)"/>
+									<MiningField name="double(CholCheck)"/>
+									<MiningField name="double(Smoker)"/>
+								</MiningSchema>
+								<Node score="-0.04390937678205505">
+									<True/>
+									<Node score="0.11486097546303264">
+										<SimplePredicate field="double(CholCheck)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.45942854406937267">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="47.5"/>
+											<Node score="-0.21856903492321894">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="39.5"/>
+											</Node>
+										</Node>
+										<Node score="-1.3495213815748637">
+											<SimplePredicate field="double(Smoker)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.020830740957180207">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="42.5"/>
+										<Node score="-0.021670315945022525">
+											<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="0.16139446927834558">
+										<SimplePredicate field="double(Sex)" operator="lessOrEqual" value="0.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="98">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(MentHlth)"/>
+									<MiningField name="double(PhysActivity)"/>
+								</MiningSchema>
+								<Node score="-0.057681168611595356">
+									<True/>
+									<Node score="-0.07428972514123174">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.2973148860520404">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="21.5"/>
+											<Node score="0.08636586777210634">
+												<SimplePredicate field="double(PhysActivity)" operator="lessOrEqual" value="0.5"/>
+											</Node>
+										</Node>
+										<Node score="0.008727550478693289">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="-1.2592212294374372">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="15.5"/>
+										<Node score="1.5542146280388345">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="20.0"/>
+										</Node>
+									</Node>
+									<Node score="0.023213829499220587">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="12.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="99">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(HighChol)"/>
+									<MiningField name="double(HvyAlcoholConsump)"/>
+									<MiningField name="double(HeartDiseaseorAttack)"/>
+									<MiningField name="double(Stroke)"/>
+									<MiningField name="double(PhysHlth)"/>
+								</MiningSchema>
+								<Node score="-0.002039164275370998">
+									<True/>
+									<Node score="0.004923593514411608">
+										<SimplePredicate field="double(HvyAlcoholConsump)" operator="lessOrEqual" value="0.5"/>
+										<Node score="0.020953203649511726">
+											<SimplePredicate field="double(Stroke)" operator="lessOrEqual" value="0.5"/>
+											<Node score="-0.019926420758239496">
+												<SimplePredicate field="double(Age)" operator="lessOrEqual" value="9.5"/>
+											</Node>
+										</Node>
+										<Node score="0.18078860277356026">
+											<SimplePredicate field="double(PhysHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="0.4661634351425195">
+										<SimplePredicate field="double(HighChol)" operator="lessOrEqual" value="0.5"/>
+										<Node score="-0.27905616700467095">
+											<SimplePredicate field="double(HeartDiseaseorAttack)" operator="lessOrEqual" value="0.5"/>
+										</Node>
+									</Node>
+									<Node score="1.8069471547156468">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="17.5"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+						<Segment id="100">
+							<True/>
+							<TreeModel functionName="regression" missingValueStrategy="nullPrediction" noTrueChildStrategy="returnLastPrediction">
+								<MiningSchema>
+									<MiningField name="double(GenHlth)"/>
+									<MiningField name="double(Age)"/>
+									<MiningField name="double(BMI)"/>
+									<MiningField name="double(MentHlth)"/>
+								</MiningSchema>
+								<Node score="-3.971874965858729">
+									<True/>
+									<Node score="0.09898873306421128">
+										<SimplePredicate field="double(GenHlth)" operator="lessOrEqual" value="4.5"/>
+										<Node score="0.8515337351842863">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="72.5"/>
+											<Node score="-0.005131981864936597">
+												<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="62.5"/>
+											</Node>
+										</Node>
+										<Node score="-1.0459200523973127">
+											<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="80.0"/>
+										</Node>
+									</Node>
+									<Node score="0.14399424570254038">
+										<SimplePredicate field="double(Age)" operator="lessOrEqual" value="5.5"/>
+										<Node score="0.7991420409857843">
+											<SimplePredicate field="double(MentHlth)" operator="lessOrEqual" value="2.5"/>
+										</Node>
+									</Node>
+									<Node score="0.04697739464584884">
+										<SimplePredicate field="double(BMI)" operator="lessOrEqual" value="91.0"/>
+									</Node>
+								</Node>
+							</TreeModel>
+						</Segment>
+					</Segmentation>
+				</MiningModel>
+			</Segment>
+			<Segment id="2">
+				<True/>
+				<RegressionModel functionName="classification">
+					<MiningSchema>
+						<MiningField name="Diabetes" usageType="target"/>
+						<MiningField name="sigmoid(decisionFunction(1.0))"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="probability(0.0)" optype="continuous" dataType="double" feature="probability" value="0.0"/>
+						<OutputField name="probability(1.0)" optype="continuous" dataType="double" feature="probability" value="1.0"/>
+					</Output>
+					<RegressionTable intercept="0.0" targetCategory="1.0">
+						<NumericPredictor name="sigmoid(decisionFunction(1.0))" coefficient="1.0"/>
+					</RegressionTable>
+					<RegressionTable intercept="0.0" targetCategory="0.0"/>
+				</RegressionModel>
+			</Segment>
+		</Segmentation>
+	</MiningModel>
+</PMML>

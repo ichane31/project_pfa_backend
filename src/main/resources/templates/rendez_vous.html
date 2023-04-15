@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Informations Du RendezVous</title>
+</head>
+<body>
+<h3>Dear <span th:text="${Nom_Prenom}"></span></h3>
+<p>Votre rendez-vous a été enregistré avec succès et voici les informations nécessaires :</p>
+<p style="font-size: 1.5em; font-weight: bold;">Date : <span th:text="${Date}"></span></p>
+<span th:if="${Heure != null}">
+    <p style="font-size: 1.5em; font-weight: bold;">Heure : <span th:text="${Heure}"></span></p>
+</span>
+<span th:if="${Heure == null}">
+    <p style="color: red; font-weight: bold;">L'heure de votre rendez-vous n'a pas été définie.</p>
+  <p style="color: #191a1a; font-weight: bold;">Vous Recevrez Un Email lorsque ce sera fait.</p>
+</span>
+</body>
+</html>
