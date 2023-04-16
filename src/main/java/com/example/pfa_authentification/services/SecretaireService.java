@@ -1,5 +1,6 @@
 package com.example.pfa_authentification.services;
 
+import com.example.pfa_authentification.exception.InvalidException;
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Medecin;
 import com.example.pfa_authentification.models.Secretaire;
@@ -34,8 +35,11 @@ public class SecretaireService {
                 .orElseThrow(() -> new RuntimeException("Secretaire introuvable"));
     }
 
-    public Secretaire addSecretaire(SecretaireRequest secretaireRequest) throws IOException, NotFoundException {
+    public Secretaire addSecretaire(SecretaireRequest secretaireRequest) throws IOException, NotFoundException, InvalidException {
         Secretaire secretaire = new Secretaire();
+        if(secretaireRepository.findByEmail(secretaireRequest.getEmail())!=null){
+            throw  new InvalidException("Secretaire existe deja");
+        }
         secretaire.setNom(secretaireRequest.getNom());
         secretaire.setPrenom(secretaireRequest.getPrenom());
         secretaire.setDate_naissance(secretaireRequest.getDate_naissance());

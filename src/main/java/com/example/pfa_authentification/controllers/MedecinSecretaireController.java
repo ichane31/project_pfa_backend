@@ -39,7 +39,7 @@ public class MedecinSecretaireController {
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(medecinSecretaire, HttpStatus.CREATED);
+        return new ResponseEntity<>(medecinSecretaire, HttpStatus.OK);
     }
 
     @PutMapping("/{medecinId}/secretaires/{secretaireId}/relations")

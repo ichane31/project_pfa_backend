@@ -13,6 +13,8 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     List<Patient> findByAge(int age);
 
+    Patient findByEmail(String email);
+
     List<Patient> findByNom(String name);
 
     List<Patient> findAllByNomOrderByNomAsc(String nom);

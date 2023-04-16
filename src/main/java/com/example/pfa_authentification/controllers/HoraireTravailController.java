@@ -34,7 +34,7 @@ public class HoraireTravailController {
     public ResponseEntity<HoraireTravail> ajouterHoraireTravail(@PathVariable("medecinId") Long medecinId,
                                                                 @RequestBody HoraireTravail horaireTravail) throws NotFoundException {
         horaireTravailService.ajouterHoraireTravail(medecinId, horaireTravail);
-        return new ResponseEntity<>(horaireTravail, HttpStatus.CREATED);
+        return new ResponseEntity<>(horaireTravail, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

@@ -30,6 +30,7 @@ public class LoginResponse {
     private String password;
 
     private List<String> roles;
+    
 
     public LoginResponse(Long id, String firstName, String lastName, String email, String password, List<String> roles) {
         this.id = id;
@@ -38,5 +39,9 @@ public class LoginResponse {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public LoginResponse() {
+
     }
 }

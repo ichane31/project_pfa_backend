@@ -29,6 +29,7 @@ public class Stroke{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     @JsonIgnore
+
     private Patient patient;
 
 

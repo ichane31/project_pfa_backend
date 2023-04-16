@@ -46,7 +46,7 @@ public class TraitementController {
         } catch (InvalidException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
-        return new ResponseEntity<>(traitement, HttpStatus.CREATED);
+        return new ResponseEntity<>(traitement, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

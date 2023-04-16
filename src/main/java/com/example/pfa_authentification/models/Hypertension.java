@@ -2,6 +2,7 @@ package com.example.pfa_authentification.models;
 
 import com.example.pfa_authentification.models.Patient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Hypertension {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Ignorer les propriétés du proxy Hibernate
     private Patient patient;
 
     public Hypertension() {

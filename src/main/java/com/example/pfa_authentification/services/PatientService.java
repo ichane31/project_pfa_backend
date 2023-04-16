@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.pfa_authentification.exception.InvalidException;
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Medecin;
 import com.example.pfa_authentification.models.Patient;
@@ -23,11 +24,14 @@ public class PatientService {
     @Autowired
     private MedecinRepository medecinRepository;
 
-    public Patient savePatient(Patient patient , Long id_medecin) throws NotFoundException {
+    public Patient savePatient(Patient patient , Long id_medecin) throws NotFoundException, InvalidException {
 
         Medecin medecin = medecinRepository.findById(id_medecin).get();
         if(medecin ==null) {
             throw new NotFoundException(String.format("Medecin not found for id =%s" ,id_medecin));
+        }
+        if(patientRepository.findByEmail(patient.getEmail())!=null){
+            throw  new InvalidException("Patient Exist deja ");
         }
         patient.setMedecinTraitant(medecin);
         return patientRepository.save(patient);

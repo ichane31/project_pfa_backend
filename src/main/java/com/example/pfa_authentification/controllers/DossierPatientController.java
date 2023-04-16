@@ -23,7 +23,7 @@ public class DossierPatientController {
     public ResponseEntity<?> ajouterDossierPatient(@PathVariable Long idPatient, @RequestBody DossierPatientRequest dossierPatientRequest) {
         try {
             DossierPatient dossierPatient = dossierPatientService.ajouterDossierPatient(idPatient, dossierPatientRequest);
-            return new ResponseEntity<>(dossierPatient, HttpStatus.CREATED);
+            return new ResponseEntity<>(dossierPatient, HttpStatus.OK);
         } catch (AlreadyExistsException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

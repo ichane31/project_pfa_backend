@@ -31,12 +31,12 @@ public class HypertensionController {
         }
         hypertensionService.saveHypertention(predict);
 
-        return new ResponseEntity<>(predict,HttpStatus.CREATED );
+        return new ResponseEntity<>(predict,HttpStatus.OK );
     }
 
     @GetMapping("/")
     public ResponseEntity<?> getAll() {
-        return new ResponseEntity<>(hypertensionService.findAll(),HttpStatus.CREATED );
+        return new ResponseEntity<>(hypertensionService.findAll(),HttpStatus.OK );
 
     }
 
@@ -52,7 +52,7 @@ public class HypertensionController {
 
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<?> getByPatientId(@PathVariable Long patientId) {
-        return new ResponseEntity<>(hypertensionService.getByPatientId(patientId),HttpStatus.CREATED );
+        return new ResponseEntity<>(hypertensionService.getByPatientId(patientId),HttpStatus.OK );
 
     }
 }

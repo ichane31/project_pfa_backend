@@ -71,7 +71,7 @@ public class StrokeController {
     @PostMapping("/add")
     public ResponseEntity<Stroke> saveStroke(@RequestBody Stroke stroke) {
         Stroke savedStroke = strokeService.saveStroke(stroke);
-        return new ResponseEntity<>(savedStroke, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedStroke, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -90,6 +90,6 @@ public class StrokeController {
         }
         strokeService.saveStroke(predict);
 
-        return new ResponseEntity<>(predict,HttpStatus.CREATED );
+        return new ResponseEntity<>(predict,HttpStatus.OK );
     }
 }

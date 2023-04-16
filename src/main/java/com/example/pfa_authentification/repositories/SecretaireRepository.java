@@ -18,4 +18,6 @@ public interface SecretaireRepository extends JpaRepository<Secretaire, Long> {
     List<Secretaire> findByAdresseContaining(String adresse);
     @Query("SELECT COUNT(s) FROM Secretaire s")
     Long countAllSecretaires();
+
+    Secretaire findByEmail(String email);
 }

@@ -1,4 +1,6 @@
 package com.example.pfa_authentification.services;
+import com.example.pfa_authentification.exception.AlreadyExistsException;
+import com.example.pfa_authentification.exception.InvalidException;
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Medecin;
 import com.example.pfa_authentification.models.Secretaire;
@@ -39,8 +41,11 @@ public class MedecinService {
         return medecinRepository.findByAge(age);
     }
 
-    public Medecin saveMedecin(Medecin medecin ) {
+    public Medecin saveMedecin(Medecin medecin ) throws InvalidException {
 
+        if(medecinRepository.findByEmail(medecin.getEmail())!=null) {
+            throw new InvalidException("Le Medecin exist deja ");
+        }
         return medecinRepository.save(medecin);
     }
 

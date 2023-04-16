@@ -11,16 +11,16 @@ import java.util.List;
 public interface DiabeteRepository extends JpaRepository<Diabete, Long> {
 
     // Récupérer tous les diabètes avec un BMI supérieur à une certaine valeur
-    List<Diabete> findByBmiGreaterThan(double bmi);
+    List<Diabete> findAllByBmiGreaterThan(double bmi);
 
     // Récupérer tous les diabètes avec un certain état de santé général
-    List<Diabete> findByGenHlth(int genHlth);
+    List<Diabete> findAllByGenHlth(int genHlth);
 
     // Récupérer tous les diabètes chez les patients qui ont déclaré ne pas boire d'alcool
-    List<Diabete> findByHvyAlcoholConsump(int v);
+    List<Diabete> findAllByHvyAlcoholConsump(int v);
 
     // Récupérer tous les diabètes chez les patients de sexe masculin âgés de plus de 50 ans
-    List<Diabete> findBySexAndAgeGreaterThan(int sex, int age);
+    List<Diabete> findAllBySexAndAge(int sex, int age);
 
     // Compter le nombre de patients atteints de diabète ayant un physHlth inférieur à une certaine valeur
     long countByPhysHlthLessThan(int physHlth);

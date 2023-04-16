@@ -24,27 +24,27 @@ public class DiabeteController {
     @GetMapping("/bmi/{bmi}")
     public ResponseEntity<List<Diabete>> getDiabetesByBmi(@PathVariable double bmi) {
         List<Diabete> diabetes= diabeteService.getDiabetesByBmi(bmi);
-        return new ResponseEntity<>(diabetes,HttpStatus.FOUND);
+        return new ResponseEntity<>(diabetes,HttpStatus.OK);
 
     }
 
     @GetMapping("/gen-hlth/{genHlth}")
     public ResponseEntity<List<Diabete>> getDiabetesByGenHlth(@PathVariable int genHlth) {
         List<Diabete> diabetes= diabeteService.getDiabetesByGenHlth(genHlth);
-        return new ResponseEntity<>(diabetes,HttpStatus.FOUND);
+        return new ResponseEntity<>(diabetes,HttpStatus.OK);
 
     }
 
     @GetMapping("/no-alcohol")
     public ResponseEntity<List<Diabete>> getDiabetesByNoAlcoholConsumption(@RequestBody int v) {
         List<Diabete>diabetes= diabeteService.getDiabetesByNoAlcoholConsumption(v);
-        return new ResponseEntity<>(diabetes,HttpStatus.FOUND);
+        return new ResponseEntity<>(diabetes,HttpStatus.OK);
     }
 
     @GetMapping("/{sex}/{age}")
     public ResponseEntity<List<Diabete>> getDiabetesBySexAndAge(@PathVariable int sex, @PathVariable int age) {
         List<Diabete> diabetes= diabeteService.getDiabetesBySexAndAge(sex, age);
-        return new ResponseEntity<>(diabetes,HttpStatus.FOUND);
+        return new ResponseEntity<>(diabetes,HttpStatus.OK);
 
     }
 
@@ -69,7 +69,7 @@ public class DiabeteController {
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<Diabete>> getByPatientId(@PathVariable Long patientId) {
         List<Diabete> diabetes= diabeteService.getByPatientId(patientId);
-        return new ResponseEntity<>(diabetes,HttpStatus.FOUND);
+        return new ResponseEntity<>(diabetes,HttpStatus.OK);
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.pfa_authentification.controllers;
 
+import com.example.pfa_authentification.exception.InvalidException;
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Patient;
 import com.example.pfa_authentification.payload.request.PatientRequest;
@@ -52,6 +53,8 @@ public class PatientController {
             savedPatient = patientService.savePatient(patient1, id);
         } catch (NotFoundException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (InvalidException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         }
         return new ResponseEntity(savedPatient, HttpStatus.OK);
     }

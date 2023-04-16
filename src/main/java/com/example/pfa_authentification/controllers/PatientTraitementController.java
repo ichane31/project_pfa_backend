@@ -76,7 +76,7 @@ public class PatientTraitementController {
             @PathVariable("id") Long patientId,
             @PathVariable("id_trait") Long traitementId) throws NotFoundException {
         PatientTraitement patientTraitement = patientTraitementService.create(patientTraitementRequest, patientId, traitementId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(patientTraitement);
+        return ResponseEntity.status(HttpStatus.OK).body(patientTraitement);
     }
 
     @DeleteMapping("/{id}")

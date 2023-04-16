@@ -1,16 +1,12 @@
 package com.example.pfa_authentification.controllers;
 
 import com.example.pfa_authentification.exception.NotFoundException;
-import com.example.pfa_authentification.models.ERole;
-import com.example.pfa_authentification.models.Role;
-import com.example.pfa_authentification.models.User;
+import com.example.pfa_authentification.models.*;
 import com.example.pfa_authentification.payload.request.*;
 import com.example.pfa_authentification.payload.response.LoginResponse;
-import com.example.pfa_authentification.repositories.RoleRepository;
-import com.example.pfa_authentification.repositories.UserRepository;
+import com.example.pfa_authentification.repositories.*;
 import com.example.pfa_authentification.security.Services.UserDetailsImpl;
 import com.example.pfa_authentification.services.UserService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -23,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -53,6 +48,15 @@ public class UserControllers {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    MedecinRepository medecinRepository;
+
+    @Autowired
+    PatientRepository patientRepository;
+
+    @Autowired
+    SecretaireRepository secretaireRepository;
 
     @Autowired
     RoleRepository roleRepository;
@@ -96,6 +100,7 @@ public class UserControllers {
                         .map(item -> item.getAuthority())
                         .collect(toList());
                 userService.resetFailedLoginAttempts(user);
+
                 return ok(new LoginResponse(
                         userDetails.getId(),
                         userDetails.getUsername(),
@@ -116,7 +121,6 @@ public class UserControllers {
             return new ResponseEntity<>(model,HttpStatus.BAD_REQUEST);
         }
     }
-
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
 
@@ -137,6 +141,13 @@ public class UserControllers {
             Role userRole = roleRepository.findByName(ERole.ROLE_PATIENT)
                     .orElseThrow(() -> new RuntimeException("error: role is not found."));
             roles.add(userRole);
+            if(patientRepository.findByEmail(signUpRequest.getEmail())==null){
+                Patient patient = new Patient();
+                patient.setNom(signUpRequest.getLastName());
+                patient.setPrenom(signUpRequest.getFirstName());
+                patient.setEmail(signUpRequest.getEmail());
+                patientRepository.save(patient);
+            }
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
@@ -145,35 +156,61 @@ public class UserControllers {
                                 .orElseThrow(() -> new RuntimeException("error: role is not found."));
                         roles.add(adminRole);
                         user.setAdmin(1);
-
                         break;
                     case "medecin":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MEDECIN)
                                 .orElseThrow(() -> new RuntimeException("error: role is not found."));
                         roles.add(modRole);
+                        if(medecinRepository.findByEmail(signUpRequest.getEmail())==null) {
+                            Medecin medecin = new Medecin();
+                            medecin.setNom(signUpRequest.getLastName());
+                            medecin.setPrenom(signUpRequest.getFirstName());
+                            medecin.setEmail(signUpRequest.getEmail());
+                            medecinRepository.save(medecin);
+                        }
 
                         break;
-                    case "patient":
+                    case "patient1":
                         Role patRole = roleRepository.findByName(ERole.ROLE_PATIENT)
                                 .orElseThrow(() -> new RuntimeException("error: role is not found."));
                         roles.add(patRole);
-
+                        if(patientRepository.findByEmail(signUpRequest.getEmail())==null){
+                            Patient patient = new Patient();
+                            patient.setNom(signUpRequest.getLastName());
+                            patient.setPrenom(signUpRequest.getFirstName());
+                            patient.setEmail(signUpRequest.getEmail());
+                            patientRepository.save(patient);
+                        }
                         break;
                     case "secretaire":
                         Role secRole = roleRepository.findByName(ERole.ROLE_SECRETAIRE)
                                 .orElseThrow(() -> new RuntimeException("error: role is not found."));
                         roles.add(secRole);
+                        if(secretaireRepository.findByEmail(signUpRequest.getEmail())==null) {
+                            Secretaire secretaire = new Secretaire();
+                            secretaire.setNom(signUpRequest.getLastName());
+                            secretaire.setPrenom(signUpRequest.getFirstName());
+                            secretaire.setEmail(signUpRequest.getEmail());
+                            secretaireRepository.save(secretaire);
+                        }
 
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_PATIENT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                        if(patientRepository.findByEmail(signUpRequest.getEmail())==null){
+                            Patient patient1 = new Patient();
+                            patient1.setNom(signUpRequest.getLastName());
+                            patient1.setPrenom(signUpRequest.getFirstName());
+                            patient1.setEmail(signUpRequest.getEmail());
+                            patientRepository.save(patient1);
+                        }
                 }
             });
         }
         user.setRoles(roles);
-        userService.sendRegistrationConfirmationEmail22(user , signUpRequest.getPassword());
+        //userService.sendRegistrationConfirmationEmail22(user , signUpRequest.getPassword());
 
         userRepository.save(user);
         //notificationService.createUserNotification(user);
@@ -227,7 +264,7 @@ public class UserControllers {
         try {
             User country =userService.getUserbyID(id);
             //return country;
-            return  new ResponseEntity<User>(country, HttpStatus.FOUND);
+            return  new ResponseEntity<User>(country, HttpStatus.OK);
         }catch (Exception e) {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -237,7 +274,7 @@ public class UserControllers {
     public ResponseEntity<List<User>> getUsers() {
         try {
             List<User> countries= userService.getAllUsers();
-            return  new ResponseEntity< List<User>>(countries,HttpStatus.FOUND);
+            return  new ResponseEntity< List<User>>(countries,HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -248,7 +285,7 @@ public class UserControllers {
         try {
             User country =userService.getUserbyEmal(email);
             //return country;
-            return  new ResponseEntity<User>(country, HttpStatus.FOUND);
+            return  new ResponseEntity<User>(country, HttpStatus.OK);
         }catch (NoSuchElementException | NotFoundException e) {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

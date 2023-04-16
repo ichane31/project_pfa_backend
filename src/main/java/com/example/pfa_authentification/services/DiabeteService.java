@@ -2,11 +2,8 @@ package com.example.pfa_authentification.services;
 
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.modelPrediction.DiabeteModelPrediction;
-import com.example.pfa_authentification.modelPrediction.StrokeModePrediction;
 import com.example.pfa_authentification.models.Diabete;
-import com.example.pfa_authentification.models.Hypertension;
 import com.example.pfa_authentification.models.Patient;
-import com.example.pfa_authentification.models.Stroke;
 import com.example.pfa_authentification.payload.request.DiabeteRequest;
 import com.example.pfa_authentification.repositories.DiabeteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +22,18 @@ public class DiabeteService {
     private PatientService patientService;
 
     public List<Diabete> getDiabetesByBmi(double bmi) {
-        return diabeteRepository.findByBmiGreaterThan(bmi);
+        return diabeteRepository.findAllByBmiGreaterThan(bmi);
     }
 
     public List<Diabete> getDiabetesByGenHlth(int genHlth) {
-        return diabeteRepository.findByGenHlth(genHlth);
+        return diabeteRepository.findAllByGenHlth(genHlth);
     }
 
     public List<Diabete> getDiabetesByNoAlcoholConsumption(int v) {
-        return diabeteRepository.findByHvyAlcoholConsump(v);
+        return diabeteRepository.findAllByHvyAlcoholConsump(v);
     }
     public List<Diabete> getDiabetesBySexAndAge(int sex, int age) {
-        return diabeteRepository.findBySexAndAgeGreaterThan(sex, age);
+        return diabeteRepository.findAllBySexAndAge(sex, age);
     }
     public long countDiabetesByPhysHlth(int physHlth) {
         return diabeteRepository.countByPhysHlthLessThan(physHlth);

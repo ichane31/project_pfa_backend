@@ -1,5 +1,6 @@
 package com.example.pfa_authentification.controllers;
 
+import com.example.pfa_authentification.exception.InvalidException;
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Medecin;
 import com.example.pfa_authentification.models.Secretaire;
@@ -47,6 +48,8 @@ public class SecretaireController {
             return new ResponseEntity<>("Image Error ", HttpStatus.NO_CONTENT);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CREATED);
+        } catch (InvalidException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(newSecretaire, HttpStatus.CREATED);
     }

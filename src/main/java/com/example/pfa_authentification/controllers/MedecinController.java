@@ -1,5 +1,6 @@
 package com.example.pfa_authentification.controllers;
 
+import com.example.pfa_authentification.exception.InvalidException;
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Medecin;
 import com.example.pfa_authentification.payload.request.MedecinRequest;
@@ -56,6 +57,7 @@ public class MedecinController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE} , produces = "application/json")
     public ResponseEntity<Medecin> saveMedecin(@ModelAttribute MedecinRequest medecinRequest) {
         Medecin medecin = new Medecin();
+        Medecin savedMedecin =null;
         medecin.setAdresse(medecinRequest.getAdresse());
         medecin.setAge(medecinRequest.getAge());
         medecin.setDate_naissance(medecinRequest.getDate_naissance());
@@ -70,10 +72,12 @@ public class MedecinController {
 
         try {
             medecin.setImage(medecinRequest.getImage().getBytes());
+            savedMedecin = medecinService.saveMedecin(medecin );
         } catch (IOException e) {
             return new ResponseEntity("Image Error", HttpStatus.NO_CONTENT);
+        } catch (InvalidException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         }
-        Medecin savedMedecin = medecinService.saveMedecin(medecin );
         return new ResponseEntity<>(savedMedecin, HttpStatus.CREATED);
     }
 
