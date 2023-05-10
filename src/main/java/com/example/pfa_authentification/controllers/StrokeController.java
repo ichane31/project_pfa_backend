@@ -68,11 +68,11 @@ public class StrokeController {
         return new ResponseEntity<>(strokes, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    /*@PostMapping("/add")
     public ResponseEntity<Stroke> saveStroke(@RequestBody Stroke stroke) {
         Stroke savedStroke = strokeService.saveStroke(stroke);
         return new ResponseEntity<>(savedStroke, HttpStatus.OK);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStroke(@PathVariable Long id) {
@@ -80,11 +80,11 @@ public class StrokeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/{id}/predict")
-    public ResponseEntity<?> predictStroke(@RequestBody StrokeRequest stroke , @PathVariable Long id) {
+    @PostMapping("/{idpatient}/predict")
+    public ResponseEntity<?> predictStroke(@RequestBody StrokeRequest stroke , @PathVariable Long idpatient) {
         Stroke predict = null;
         try {
-            predict = strokeService.predictStroke(stroke,id);
+            predict = strokeService.predictStroke(stroke, idpatient);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND );
         }

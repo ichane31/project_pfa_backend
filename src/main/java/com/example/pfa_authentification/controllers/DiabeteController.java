@@ -2,10 +2,7 @@ package com.example.pfa_authentification.controllers;
 
 import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.models.Diabete;
-import com.example.pfa_authentification.models.Hypertension;
-import com.example.pfa_authentification.models.Stroke;
 import com.example.pfa_authentification.payload.request.DiabeteRequest;
-import com.example.pfa_authentification.payload.request.StrokeRequest;
 import com.example.pfa_authentification.services.DiabeteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +17,12 @@ public class DiabeteController {
 
     @Autowired
     private DiabeteService diabeteService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Diabete>> getAllDiabetes() {
+        List<Diabete> diabetes = diabeteService.getAllDiabetes();
+        return new ResponseEntity<>(diabetes, HttpStatus.OK);
+    }
 
     @GetMapping("/bmi/{bmi}")
     public ResponseEntity<List<Diabete>> getDiabetesByBmi(@PathVariable double bmi) {
@@ -54,10 +57,10 @@ public class DiabeteController {
     }
 
     @PostMapping("/{id}/predict")
-    public ResponseEntity<?> predictStroke(@RequestBody DiabeteRequest diabeteRequest , @PathVariable Long id) {
+    public ResponseEntity<?> predictDiabete(@RequestBody DiabeteRequest diabeteRequest , @PathVariable Long id) {
         Diabete predict = null;
         try {
-            predict = diabeteService.predictDiaete(diabeteRequest,id);
+            predict = diabeteService.predictDiabete(diabeteRequest,id);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND );
         }

@@ -4,6 +4,7 @@ import com.example.pfa_authentification.exception.NotFoundException;
 import com.example.pfa_authentification.modelPrediction.DiabeteModelPrediction;
 import com.example.pfa_authentification.models.Diabete;
 import com.example.pfa_authentification.models.Patient;
+import com.example.pfa_authentification.models.Stroke;
 import com.example.pfa_authentification.payload.request.DiabeteRequest;
 import com.example.pfa_authentification.repositories.DiabeteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class DiabeteService {
 
     @Autowired
     private PatientService patientService;
+
+    public List<Diabete> getAllDiabetes() {
+        return diabeteRepository.findAll();
+    }
 
     public List<Diabete> getDiabetesByBmi(double bmi) {
         return diabeteRepository.findAllByBmiGreaterThan(bmi);
@@ -39,7 +44,7 @@ public class DiabeteService {
         return diabeteRepository.countByPhysHlthLessThan(physHlth);
     }
 
-    public Diabete predictDiaete(DiabeteRequest diabeteRequest ,Long id) throws NotFoundException {
+    public Diabete predictDiabete(DiabeteRequest diabeteRequest , Long id) throws NotFoundException {
         DiabeteModelPrediction diabeteModelPrediction = new DiabeteModelPrediction();
         Patient patient = patientService.getPatientById(id);
         if(patient==null) {

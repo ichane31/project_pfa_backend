@@ -369,7 +369,6 @@ public class UserControllers {
     }
 
     @PutMapping("/change-password")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> changePassword(@Validated @RequestBody ChangePasswordDto changePasswordDto,
                                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
 

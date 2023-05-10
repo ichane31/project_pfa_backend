@@ -34,7 +34,7 @@ public class HypertensionController {
         return new ResponseEntity<>(predict,HttpStatus.OK );
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public ResponseEntity<?> getAll() {
         return new ResponseEntity<>(hypertensionService.findAll(),HttpStatus.OK );
 

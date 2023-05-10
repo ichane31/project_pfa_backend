@@ -66,8 +66,8 @@ public class WebSecurityConfig {
                         "/swagger-resources/configuration/ui",
                         "/swagger-resources/configuration/security")
                 .permitAll()
-                .antMatchers("/api/auth/admin/**").hasAnyAuthority("ADMIN")
-                .antMatchers("/api/auth/medecin/**").hasAnyAuthority("MEDECIN")
+                .antMatchers("/api/auth/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/auth/medecin/**").hasAuthority("MEDECIN")
                 //.antMatchers("/api/patients/**").hasAnyRole("MEDECIN", "SECRETAIRE")
                 .antMatchers("/api/patients/**" ,"/api/medecins/**","/api/secretaires/**","/api/strokes/**","/api/medecinsSecretaire/**","/api/diabetes/**","/api/hypertension/**").permitAll()
                 .antMatchers("/api/dossiers/**","/api/rendezvous/**","/api/patient-traitements/**","/api/traitements/**","/api/horaires/**","/api/images/**").permitAll()
